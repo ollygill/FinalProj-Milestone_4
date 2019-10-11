@@ -1,0 +1,39 @@
+---
+title: 'Milestone #4 - Olly Gill'
+output: html_document
+---
+
+```{r setup, Loading necessary libraries, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(readr)
+
+athlete_events <- read_csv("athlete_events.csv")
+```
+
+```{r, Creating vector of select data, include=FALSE}
+select_countries <- c("United States", "France", "Spain", "Bulgaria", "Egypt", "Mexico", "Norway", "Italy")
+```
+
+### Olympic Data Graph:
+```{r, Creating ggplot of data, warning=FALSE}
+athlete_events %>% 
+  filter(Team %in% select_countries) %>% 
+  select(Team, Games) %>% 
+  ggplot(aes(x = Team, 
+             fill = Team, 
+             color = Team)) + 
+  geom_histogram(stat = "count") + 
+  labs(title = "The Number of Events Participated in Per Country", 
+       subtitle = "Data Shown For a Selection of Teams: 1896-2016", 
+       x = "Olympic Team", 
+       y = "Number of Events") +
+    theme(axis.ticks.x=element_blank(), 
+        axis.text.x=element_blank())
+```
+
+
+Here I selected a list of countries that I was interested in and decided to look at their data specifically. I wanted to know which country participated in the most events. I know after watching the games every year that some countries have people in every single event while others only have people competeing in a few events. So, what I decided to do with my ggplot is to take some of the countries I am most interested in and plot them along the x-axis of the graph. Then, I plotted the "Games" on the y-axis, which added up all of the events in every Olympics since the start of the Olympics in 1896. The height of the bars corresponds to the total number of events from every single Olympic games through 2016 that each country has competed in.
+
+I think it is really interesting to see how places like the United States have an incredibly high total of events whereas places like Bulgaria only have a tiny fraction of the United States' total. Plots like this are so interesting because they can help you look at something like the Olympics beyond what you see on TV and help you really see interesting details about it that aren't broadcasted to the world. From this I can now see how some countries are only slightly involved and how other big countries dominate the games every year. I can't wait to make more graphs to learn more about the games as the final project progresses!
